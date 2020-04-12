@@ -1,0 +1,277 @@
+@import "~prismjs/themes/prism.css";
+
+:host {
+  ::slotted([slot="code"]) {
+    display: none;
+  }
+}
+
+:host(.deckgo-highlight-code-edit) {
+  ::slotted([slot="code"]) {
+    display: block;
+    white-space: pre-wrap;
+  }
+
+  code {
+    display: none;
+  }
+}
+
+:host([editable]) {
+  code:empty:not(:focus):after {
+    content: var(--deckgo-highlight-code-empty-text, "Click to add your code");
+  }
+}
+
+:host(.deckgo-highlight-code-carbon) {
+  display: var(--deckgo-highlight-code-carbon-display, block);
+  overflow: var(--deckgo-highlight-code-carbon-overflow, auto);
+  border: var(--deckgo-highlight-code-carbon-border);
+  border-radius: var(--deckgo-highlight-code-carbon-border-radius, 4px);
+  background: var(--deckgo-highlight-code-carbon-background, #282a36);
+  color: var(--deckgo-highlight-code-carbon-color, white);
+  box-shadow: var(--deckgo-highlight-code-carbon-box-shadow, rgba(0, 0, 0, 0.55) 0 8px 16px);
+  margin: var(--deckgo-highlight-code-carbon-margin, 16px 0);
+
+  div.deckgo-highlight-code-container {
+    margin: var(--deckgo-highlight-code-margin, 0 0 16px);
+  }
+}
+
+:host(.deckgo-highlight-code-carbon) ::slotted([slot="code"]) {
+  color: var(--deckgo-highlight-code-carbon-color, white);
+}
+
+:host(.deckgo-highlight-code-ubuntu) {
+  display: var(--deckgo-highlight-code-ubuntu-display, block);
+  overflow: var(--deckgo-highlight-code-ubuntu-overflow, auto);
+  border: var(--deckgo-highlight-code-ubuntu-border);
+  border-radius: var(--deckgo-highlight-code-ubuntu-border-radius, 6px 6px 0 0);
+  background: var(--deckgo-highlight-code-ubuntu-background, rgba(56, 4, 40, 0.9));
+  color: var(--deckgo-highlight-code-ubuntu-color, #ddd);
+  box-shadow: var(--deckgo-highlight-code-ubuntu-box-shadow, 2px 4px 10px rgba(0, 0, 0, 0.5));
+  margin: var(--deckgo-highlight-code-ubuntu-margin, 16px 0);
+
+  div.deckgo-highlight-code-container {
+    margin: var(--deckgo-highlight-code-margin, 0 0 16px);
+    padding: var(--deckgo-highlight-code-padding, 2px 0 0);
+    background: transparent;
+
+    code {
+      font-family: var(--deckgo-highlight-code-font-family, "Ubuntu mono");
+    }
+  }
+}
+
+:host(.deckgo-highlight-code-ubuntu) ::slotted([slot="code"]) {
+  color: var(--deckgo-highlight-code-ubuntu-color, #ddd);
+}
+
+div.deckgo-highlight-code-container {
+  color: var(--deckgo-highlight-code-color, inherit);
+  background: var(--deckgo-highlight-code-background);
+  padding: var(--deckgo-highlight-code-padding, 0 16px);
+  border-radius: var(--deckgo-highlight-code-border-radius);
+
+  margin: var(--deckgo-highlight-code-margin, 16px 0);
+
+  transform-origin: bottom left;
+  transition: all 0.2s ease-in-out;
+  transform: scale(var(--deckgo-highlight-code-zoom, 1));
+
+  direction: var(--deckgo-highlight-code-direction, ltr);
+  text-align: var(--deckgo-highlight-code-text-align, start);
+
+  width: var(--deckgo-highlight-code-container-width);
+  height: var(--deckgo-highlight-code-container-height);
+  display: var(--deckgo-highlight-code-container-display, block);
+  justify-content: var(--deckgo-highlight-code-container-justify-content);
+  flex-direction: var(--deckgo-highlight-code-container-flex-direction);
+  align-items: var(--deckgo-highlight-code-container-align-items);
+
+  code {
+    overflow-y: var(--deckgo-highlight-code-scroll, scroll);
+
+    white-space: pre-wrap;
+
+    font-size: var(--deckgo-highlight-code-font-size);
+    font-family: var(--deckgo-highlight-code-font-family, monospace);
+
+    display: var(--deckgo-highlight-code-display, block);
+
+    counter-reset: linenumber;
+
+    > div.deckgo-highlight-code-line-number {
+      counter-increment: linenumber;
+      position: relative;
+      padding-left: 3.5em;
+
+      &:before {
+        content: counter(linenumber);
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 2.5em;
+        background: inherit;
+        border-right: 1px solid var(--deckgo-highlight-code-line-numbers, #999);
+        color: var(--deckgo-highlight-code-line-numbers, #999);
+      }
+    }
+
+    span.deckgo-highlight-code-anchor-hidden {
+      visibility: hidden;
+    }
+
+    .deckgo-highlight-code-line {
+      background: var(--deckgo-highlight-code-line-background, #3e4564);
+      border-top: var(--deckgo-highlight-code-line-border-top);
+      border-bottom: var(--deckgo-highlight-code-line-border-bottom);
+    }
+
+    /* Prism style override */
+    .language-css .token.string:not(.deckgo-highlight-code-line),
+    .style .token.string:not(.deckgo-highlight-code-line),
+    .token.entity:not(.deckgo-highlight-code-line),
+    .token.operator:not(.deckgo-highlight-code-line),
+    .token.url:not(.deckgo-highlight-code-line) {
+      background: inherit;
+    }
+
+    .token.comment,
+    .token.prolog,
+    .token.doctype,
+    .token.cdata {
+      color: var(--deckgo-highlight-code-token-comment, #6272a4);
+    }
+
+    .token.punctuation {
+      color: var(--deckgo-highlight-code-token-punctuation, #6272a4);
+    }
+
+    .token.property,
+    .token.tag,
+    .token.boolean,
+    .token.number,
+    .token.constant,
+    .token.symbol,
+    .token.deleted {
+      color: var(--deckgo-highlight-code-token-property, #bd93f9);
+    }
+
+    .token.selector,
+    .token.attr-name,
+    .token.string,
+    .token.char,
+    .token.builtin,
+    .token.inserted {
+      color: var(--deckgo-highlight-code-token-selector, #50fa7b);
+    }
+
+    .token.operator,
+    .token.entity,
+    .token.url,
+    .language-css .token.string,
+    .style .token.string {
+      color: var(--deckgo-highlight-code-token-operator, #ff79c6);
+    }
+
+    .token.atrule,
+    .token.attr-value,
+    .token.keyword {
+      color: var(--deckgo-highlight-code-token-atrule, #ff79c6);
+    }
+
+    .token.function,
+    .token.class-name {
+      color: var(--deckgo-highlight-code-token-function, #ffb86c);
+    }
+
+    .token.regex,
+    .token.important,
+    .token.variable {
+      color: var(--deckgo-highlight-code-token-regex, #f1fa8c);
+    }
+  }
+}
+
+div.carbon {
+  display: flex;
+  justify-content: flex-start;
+  padding: var(--deckgo-highlight-code-carbon-header-padding, 16px);
+
+  > div {
+    width: var(--deckgo-highlight-code-carbon-header-button-width, 12px);
+    height: var(--deckgo-highlight-code-carbon-header-button-height, 12px);
+    border-radius: var(--deckgo-highlight-code-carbon-header-button-border-radius, 50%);
+    margin: var(--deckgo-highlight-code-carbon-header-button-margin, 0 6px 0 0);
+
+    &.red {
+      background: var(--deckgo-highlight-code-carbon-header-button-red-background, #ff5f56);
+      border: var(--deckgo-highlight-code-carbon-header-button-red-border, 0.5px solid #e0443e);
+    }
+
+    &.yellow {
+      background: var(--deckgo-highlight-code-carbon-header-button-yellow-background, #ffbd2e);
+      border: var(--deckgo-highlight-code-carbon-header-button-yellow-border, 0.5px solid #dea123);
+    }
+
+    &.green {
+      background: var(--deckgo-highlight-code-carbon-header-button-green-background, #27c93f);
+      border: var(--deckgo-highlight-code-carbon-header-button-green-border, 0.5px solid #1aab29);
+    }
+  }
+}
+
+div.ubuntu {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: var(--deckgo-highlight-code-ubuntu-header-padding, 0 8px);
+  height: var(--deckgo-highlight-code-ubuntu-header-height, 25px);
+
+  background: var(--deckgo-highlight-code-ubuntu-header-background, linear-gradient(#504b45 0%, #3c3b37 100%));
+
+  font-family: var(--deckgo-highlight-code-ubuntu-header-font-family, "Ubuntu");
+
+  > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: var(--deckgo-highlight-code-carbon-header-button-width, 12px);
+    height: var(--deckgo-highlight-code-carbon-header-button-height, 12px);
+    border-radius: var(--deckgo-highlight-code-carbon-header-button-border-radius, 50%);
+    margin: var(--deckgo-highlight-code-carbon-header-button-margin, 0 4px 0 0);
+
+    font-size: var(--deckgo-highlight-code-carbon-header-button-font-size, 7px);
+
+    color: var(--deckgo-highlight-code-carbon-header-button-color, black);
+
+    text-shadow: var(--deckgo-highlight-code-carbon-header-button-text-shadow, 0px 1px 0px rgba(255, 255, 255, 0.2));
+    box-shadow: var(--deckgo-highlight-code-carbon-header-button-box-shadow, 0px 0px 1px 0px #41403a, 0px 1px 1px 0px #474642);
+
+    &.close {
+      background: var(--deckgo-highlight-code-carbon-header-button-close-background, linear-gradient(#f37458 0%, #de4c12 100%));
+      border: var(--deckgo-highlight-code-carbon-header-button-close-border);
+    }
+
+    &.minimize {
+      background: var(--deckgo-highlight-code-carbon-header-button-minimize-background, linear-gradient(#7d7871 0%, #595953 100%));
+      border: var(--deckgo-highlight-code-carbon-header-button-minimize-border);
+    }
+
+    &.maximize {
+      background: var(--deckgo-highlight-code-carbon-header-button-maximize-background, linear-gradient(#7d7871 0%, #595953 100%));
+      border: var(--deckgo-highlight-code-carbon-header-button-maximize-border);
+    }
+  }
+
+  > p {
+    color: var(--deckgo-highlight-code-carbon-header-user-color, #d5d0ce);
+    font-size: var(--deckgo-highlight-code-carbon-header-user-font-size, 12px);
+    line-height: var(--deckgo-highlight-code-carbon-header-user-line-height, 14px);
+    margin: var(--deckgo-highlight-code-carbon-header-user-margin, 0 0 1px 4px);
+  }
+}
